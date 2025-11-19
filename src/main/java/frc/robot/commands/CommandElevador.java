@@ -7,6 +7,7 @@ import frc.robot.subsystems.Elevador;
 public class CommandElevador extends Command {
     private Elevador elevador;
     private Joystick controller;
+    double target = 0;
 
     public CommandElevador(Elevador elevador, Joystick controller){
         this.elevador = elevador;
@@ -16,16 +17,29 @@ public class CommandElevador extends Command {
 
     @Override
     public void initialize(){
+        elevador.ResetEncoder();
     }
 
     @Override
     public void execute(){
-        elevador.ControleElevador(-controller.getY(), controller);
+        if(controller.getPOV() == 0){
+            target = 140;
+        }
+        else if(controller.getPOV() == 180){
+            target = 0;
+        }
+        else if (controller.getPOV() == 90){
+            target = 90;
+        }
+        else if (controller.getPOV() == 270){
+            target = 40;
+        }
+        elevador.runPID(target);
     }
     
     @Override
     public void end(boolean interrupted){
-        elevador.ControleElevador(0, controller);
+        elevador.run(0);
     }
 
     @Override

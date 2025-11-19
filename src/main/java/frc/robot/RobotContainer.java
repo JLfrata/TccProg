@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotContainer {
 
-  private final Joystick controller = new Joystick(0);
-  private final Joystick controller1 = new Joystick(1);
+  private final Joystick controller = new Joystick(1);
+  private final Joystick controller1 = new Joystick(0);
 
   private final DriveTrain driveTrain = new DriveTrain();
   private final Elevador elevador = new Elevador();
