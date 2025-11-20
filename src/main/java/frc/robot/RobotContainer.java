@@ -6,10 +6,14 @@ package frc.robot;
 
 import frc.robot.commands.CommandDrive;
 import frc.robot.commands.CommandElevador;
+import frc.robot.commands.CommandShooterFalse;
+import frc.robot.commands.CommandShooterTrue;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevador;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 public class RobotContainer {
@@ -19,6 +23,7 @@ public class RobotContainer {
 
   private final DriveTrain driveTrain = new DriveTrain();
   private final Elevador elevador = new Elevador();
+  private final Shooter shooter = new Shooter();
   
   public RobotContainer() {
     configureBindings(controller);
@@ -27,13 +32,11 @@ public class RobotContainer {
   private void configureBindings(Joystick controller) {
     driveTrain.setDefaultCommand(new CommandDrive(driveTrain, controller));
     elevador.setDefaultCommand(new CommandElevador(elevador, controller));
+    new JoystickButton(controller, 1).whileTrue(new CommandShooterTrue(shooter));
+    new JoystickButton(controller, 2).whileTrue(new CommandShooterFalse(shooter));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+  
   public Command getAutonomousCommand() {
     return null;
   }

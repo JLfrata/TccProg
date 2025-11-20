@@ -32,4 +32,7 @@ public final class Constants {
     public static double pidTolerencia = 0.5;
     public static double calculo_Ticks = 0.7950125000000001 * 5.14;
   }
+  public static class ConstantsOutTake{
+    public static int idShooter = 5;
+  }
 }
