@@ -24,6 +24,7 @@ public final class Constants {
     public static double kp = 0.05;
     public static double ki = 0.0;
     public static double kd = 0.0;
+    public static double calculo_Ticks_DriveTrain = 0.01150390625 / 100;
   }
   public static class ConstantsElevador{
     public static int Master_ID_Elevador = 6;
@@ -34,7 +35,7 @@ public final class Constants {
     public static double ki = 0.0;
     public static double kd = 0.0;
     public static double pidTolerencia = 0.5;
-    public static double calculo_Ticks = 0.01150390625 / 100;
+    public static double calculo_Ticks_Elevador = 0.7950125000000001 * 5.14;
   }
   public static class ConstantsOutTake{
     public static int idShooter = 5;

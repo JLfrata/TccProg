@@ -75,7 +75,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public double ticksToMeters(double ticks){
-        return ticks * Constants.ConstantsElevador.calculo_Ticks;
+        return ticks * Constants.ConstantsDriveTrain.calculo_Ticks_DriveTrain;
     }
 
     public double getAvarage(){
@@ -118,7 +118,7 @@ public class DriveTrain extends SubsystemBase {
     @Override
     public void periodic(){
         SmartDashboard.putData("PID do DriveTrain", PIDControllerDriveTrain);
-        SmartDashboard.putNumber("Encoder", getAvarage());
+        SmartDashboard.putNumber("Encoder DriveTrain", getAvarage());
         SmartDashboard.putBoolean("Set Point", isAtSetPoint());
     }
 

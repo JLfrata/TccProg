@@ -29,10 +29,10 @@ public class CommandElevador extends Command {
             target = 0;
         }
         else if (controller.getPOV() == 90){
-            target = 100;
+            target = 90;
         }
         else if (controller.getPOV() == 270){
-            target = 50;
+            target = 40;
         }
         elevador.runPID(target);
     }

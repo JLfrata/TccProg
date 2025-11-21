@@ -76,7 +76,7 @@ public class Elevador extends SubsystemBase {
 
 
     public double ticksToMeters(double ticks){
-        return ticks * Constants.ConstantsElevador.calculo_Ticks;
+        return ticks * Constants.ConstantsElevador.calculo_Ticks_Elevador;
     }
 
     public boolean isAtSetPoint(){
@@ -96,6 +96,6 @@ public class Elevador extends SubsystemBase {
 
     public void periodic(){
         SmartDashboard.putData("PID do Elevador", pidElevador);
-        SmartDashboard.putNumber("Encoder2", getHeight());
+        SmartDashboard.putNumber("Encoder Elevador", getHeight());
     }
 }
