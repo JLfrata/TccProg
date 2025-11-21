@@ -1,34 +1,35 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 
-public class CommandDrive extends Command{
+public class AutoLinear extends Command {
     private DriveTrain driveTrain;
-    private Joystick controller;
+    private double distance;
 
-    public CommandDrive(DriveTrain driveTrain, Joystick controller){
+    public AutoLinear(DriveTrain driveTrain, double distance){
         this.driveTrain = driveTrain;
-        this.controller = controller;
+        this.distance = distance;
         addRequirements(driveTrain);
     }
 
     @Override
     public void initialize(){
+        driveTrain.ResetEncoder();
     }
-
     @Override
     public void execute(){
-        driveTrain.Drive(controller.getY(), controller.getZ());
+        driveTrain.AutoMove(distance);
+        SmartDashboard.putNumber("Distancia Louca", distance);
     }
-    
     @Override
     public void end(boolean interrupted){
+        driveTrain.Drive(0, 0);
     }
-
     @Override
     public boolean isFinished(){
-        return false;
+        return driveTrain.isAtSetPoint();
     }
+    
 }

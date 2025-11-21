@@ -19,6 +19,7 @@ public class Shooter extends SubsystemBase {
     public void run(double speed){
         rodaShooter.set(TalonSRXControlMode.PercentOutput, speed);
     }
+
     @Override
     public void periodic(){
     }

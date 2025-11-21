@@ -1,8 +1,13 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -21,6 +26,11 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_TalonSRX rightMaster = new WPI_TalonSRX(Constants.ConstantsDriveTrain.kRightMaster);
     private final WPI_TalonSRX rightSlave = new WPI_TalonSRX(Constants.ConstantsDriveTrain.kRightSlave);
 
+    private static AHRS gyro = new AHRS(NavXComType.kMXP_SPI);
+    public PIDController PIDControllerDriveTrain = new PIDController(Constants.ConstantsDriveTrain.kp, Constants.ConstantsDriveTrain.ki, Constants.ConstantsDriveTrain.kd);
+    public PIDController PIDControllerRotate = new PIDController(Constants.ConstantsDriveTrain.kp, Constants.ConstantsDriveTrain.ki, Constants.ConstantsDriveTrain.kd);
+
+
     private DifferentialDrive diffDrive = new DifferentialDrive(leftMaster, rightMaster);
 
     private DifferentialDrivetrainSim diffDriveSim = new DifferentialDrivetrainSim(
@@ -38,10 +48,58 @@ public class DriveTrain extends SubsystemBase {
 
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
-        rightMaster.setInverted(false);
-        rightSlave.setInverted(true);
+        rightMaster.setInverted(true);
+        rightSlave.setInverted(false);
+
+        rightMaster.configSelectedFeedbackSensor(
+        FeedbackDevice.CTRE_MagEncoder_Relative, 
+        1, 
+        20
+        );
+        leftMaster.configSelectedFeedbackSensor(
+        FeedbackDevice.CTRE_MagEncoder_Relative, 
+        1, 
+        20
+        );
+        gyro.reset();
+        ResetEncoder();
 
         SmartDashboard.putData("field", field2d);
+    }
+
+
+    public void ResetEncoder(){
+        leftMaster.setSelectedSensorPosition(0);
+        rightMaster.setSelectedSensorPosition(0);
+    
+    }
+
+    public double ticksToMeters(double ticks){
+        return ticks * Constants.ConstantsElevador.calculo_Ticks;
+    }
+
+    public double getAvarage(){
+        return(ticksToMeters(rightMaster.getSelectedSensorPosition()) - ticksToMeters(leftMaster.getSelectedSensorPosition()))/2; 
+    }
+
+    public void AutoMove(double setDistance){
+        PIDControllerDriveTrain.setSetpoint(setDistance);
+        double speed = MathUtil.clamp(PIDControllerDriveTrain.calculate(getAvarage()), -0.7, 0.7);
+        Drive(speed, 0);
+
+    }
+
+    public void PIDRodar(double rotation){
+        PIDControllerRotate.setSetpoint(rotation);
+        double speedRotation = PIDControllerRotate.calculate(gyro.getAngle());
+        Drive(0, speedRotation * 0.5);
+    }
+
+    public boolean isAtSetPoint(){
+        return PIDControllerDriveTrain.atSetpoint();
+    }
+    public boolean isAtSetPointRotation(){
+        return PIDControllerRotate.atSetpoint();
     }
 
     public void Drive(double speed, double rotation) {
@@ -58,8 +116,10 @@ public class DriveTrain extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {
-
+    public void periodic(){
+        SmartDashboard.putData("PID do DriveTrain", PIDControllerDriveTrain);
+        SmartDashboard.putNumber("Encoder", getAvarage());
+        SmartDashboard.putBoolean("Set Point", isAtSetPoint());
     }
 
     @Override
@@ -73,3 +133,4 @@ public class DriveTrain extends SubsystemBase {
     }
 
 }
+

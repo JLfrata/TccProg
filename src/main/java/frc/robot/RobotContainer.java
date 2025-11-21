@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.AutoTotal;
 import frc.robot.commands.CommandDrive;
 import frc.robot.commands.CommandElevador;
 import frc.robot.commands.CommandShooterFalse;
@@ -28,6 +29,7 @@ public class RobotContainer {
   public RobotContainer() {
     configureBindings(controller);
   }
+  
 
   private void configureBindings(Joystick controller) {
     driveTrain.setDefaultCommand(new CommandDrive(driveTrain, controller));
@@ -36,8 +38,7 @@ public class RobotContainer {
     new JoystickButton(controller, 2).whileTrue(new CommandShooterFalse(shooter));
   }
 
-  
   public Command getAutonomousCommand() {
-    return null;
+    return new AutoTotal(driveTrain, elevador, shooter);
   }
 }

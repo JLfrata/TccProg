@@ -36,6 +36,7 @@ public class Elevador extends SubsystemBase {
         masterConfig.disableFollowerMode();
         
         SparkMaxConfig slaveConfig = new SparkMaxConfig();
+        slaveConfig.idleMode(IdleMode.kBrake);
         
         motorMaster.configure(masterConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
         motorSlave.configure(slaveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
@@ -78,6 +79,10 @@ public class Elevador extends SubsystemBase {
         return ticks * Constants.ConstantsElevador.calculo_Ticks;
     }
 
+    public boolean isAtSetPoint(){
+        return pidElevador.atSetpoint();
+    }
+
     public double getHeight(){
         if (ticksToMeters(masterEncoder.getPosition()) -ticksToMeters(slaveEncoder.getPosition())/2 < 0){
             return 0;
@@ -91,6 +96,6 @@ public class Elevador extends SubsystemBase {
 
     public void periodic(){
         SmartDashboard.putData("PID do Elevador", pidElevador);
-        SmartDashboard.putNumber("Encoder", getHeight());
+        SmartDashboard.putNumber("Encoder2", getHeight());
     }
 }
