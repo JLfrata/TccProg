@@ -85,6 +85,7 @@ public class DriveTrain extends SubsystemBase {
     public void AutoMove(double setDistance){
         PIDControllerDriveTrain.setSetpoint(setDistance);
         double speed = MathUtil.clamp(PIDControllerDriveTrain.calculate(getAvarage()), -0.7, 0.7);
+        SmartDashboard.putNumber("Velocidade atual", speed);
         Drive(speed, 0);
 
     }

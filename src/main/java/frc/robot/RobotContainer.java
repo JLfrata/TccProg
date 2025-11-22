@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import frc.robot.commands.AutoL3;
+import frc.robot.commands.AutoL3Shooter;
+import frc.robot.commands.AutoLinear;
+import frc.robot.commands.AutoRotation;
+import frc.robot.commands.AutoShoot;
 import frc.robot.commands.AutoTotal;
 import frc.robot.commands.CommandDrive;
 import frc.robot.commands.CommandElevador;

@@ -17,6 +17,7 @@ public class AutoLinear extends Command {
     @Override
     public void initialize(){
         driveTrain.ResetEncoder();
+        SmartDashboard.putString("Começou?", "Começou");
     }
     @Override
     public void execute(){
@@ -25,6 +26,7 @@ public class AutoLinear extends Command {
     }
     @Override
     public void end(boolean interrupted){
+        SmartDashboard.putString("Terminou?", "Terminou");
         driveTrain.Drive(0, 0);
     }
     @Override

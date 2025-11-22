@@ -16,7 +16,7 @@ public class CommandShooterFalse extends Command{
 
     @Override
     public void execute(){
-        shooter.run(-0.5);
+        shooter.run(-0.9);
     }
 
     @Override

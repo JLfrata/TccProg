@@ -5,16 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Elevador;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Shooter;
 
-
-public class AutoTotal extends SequentialCommandGroup {
-  public AutoTotal(DriveTrain driveTrain, Elevador elevador, Shooter shooter) {
+public class AutoWait extends SequentialCommandGroup {
+  public AutoWait(Shooter shooter) {
     addCommands(
-      new AutoLinear(driveTrain, -2),
-      new AutoL3Shooter(elevador, shooter),
-      new AutoL0(elevador));
+      new WaitCommand(1.5),
+      new AutoShoot(shooter, 1.5));
   }
 }
