@@ -22,17 +22,14 @@ public class CommandElevador extends Command {
 
     @Override
     public void execute(){
-        if(controller.getPOV() == 0){
-            target = 152;
-        }
-        else if(controller.getPOV() == 180){
+        if(controller.getPOV() == 180){
             target = 0;
         }
         else if (controller.getPOV() == 90){
-            target = 90;
+            target = 93;
         }
         else if (controller.getPOV() == 270){
-            target = 40;
+            target = 45;
         }
         elevador.runPID(target);
     }

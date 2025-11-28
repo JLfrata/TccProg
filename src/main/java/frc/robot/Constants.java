@@ -21,7 +21,7 @@ public final class Constants {
     public static int kRightSlave = 2;
     public static double rightVoltage = 0;
     public static double leftVoltage = 0;
-    public static double kp = 0.6807;
+    public static double kp = 1.0;
     public static double ki = 0.0;
     public static double kd = 0.0;
     public static double calculo_Ticks_DriveTrain = 0.01150390625 / 100;

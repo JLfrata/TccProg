@@ -6,7 +6,7 @@ import frc.robot.subsystems.Elevador;
 
 public class AutoL3 extends Command {
     private Elevador elevador;
-    private double target = 90;
+    private double target = 93;
     Timer timer = new Timer();
     double maxTime;
 

@@ -20,7 +20,7 @@ public class CommandDrive extends Command{
 
     @Override
     public void execute(){
-        driveTrain.Drive(controller.getY(), controller.getZ());
+        driveTrain.Drive(controller.getY() * 0.8, controller.getZ() * 0.8);
     }
     
     @Override
